@@ -21,6 +21,20 @@ Varying parameters:
 
 ## Results
 
+- fixed `totalLength=5000`, `occurrences=10`;  varying `ignoreCase` and `needle`  
+  - [JDK 8](https://jmh.morethan.io/?source=https://raw.githubusercontent.com/ilya-g/string-replace-benchmark/master/results/ignoreCaseVsNeedle_jdk8.json)
+  - [JDK 11](https://jmh.morethan.io/?source=https://raw.githubusercontent.com/ilya-g/string-replace-benchmark/master/results/ignoreCaseVsNeedle_jdk11.json)
+
+- fixed **`ignoreCase=false`**, `needle=>>back`, varying `totalLength` (100, 100K) and `occurrences` (0, 1, 10)   
+  > log scale recommended
+  - [JDK 8](https://jmh.morethan.io/?source=https://raw.githubusercontent.com/ilya-g/string-replace-benchmark/master/results/lengthVsOccurrences_jdk8.json)
+  - [JDK 11](https://jmh.morethan.io/?source=https://raw.githubusercontent.com/ilya-g/string-replace-benchmark/master/results/lengthVsOccurrences_jdk11.json)
+  
+
+- fixed **`ignoreCase=true`**, `needle=>>back`, varying `totalLength` (100, 100K) and `occurrences` (0, 1, 10)
+  > log scale recommended
+  - [JDK 8](https://jmh.morethan.io/?source=https://raw.githubusercontent.com/ilya-g/string-replace-benchmark/master/results/lengthVsOccurrences_ignoreCase_jdk8.json)
+  - [JDK 11](https://jmh.morethan.io/?source=https://raw.githubusercontent.com/ilya-g/string-replace-benchmark/master/results/lengthVsOccurrences_ignoreCase_jdk11.json)
 
 
 ## Conclusions
