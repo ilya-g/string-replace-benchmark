@@ -6,8 +6,9 @@
 
 - 'manual': a manual implementation  using `indexOf` and `StringBuilder.append` 
 - 'platform': an implementation delegating to `java.lang.String.replace`
-- 'regex': an implementation based on literal regex pattern
-- 'stdlib': the current implementation in the kotlin-stdlib 1.4.10, just `split(oldValue) + join(newValue)` 
+- 'regex': an implementation based on a literal regex pattern and an escaped literal replacement
+- 'regex1': same as above, but using a manual replacement loop
+- 'stdlib': the current implementation in the kotlin-stdlib 1.4.10, basically `split(oldValue) + join(newValue)` 
 
 Varying parameters:
 

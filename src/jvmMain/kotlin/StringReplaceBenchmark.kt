@@ -1,6 +1,7 @@
 package org.test.benchmarks.string_replace
 
 import kotlinx.benchmark.*
+import org.openjdk.jmh.annotations.Level
 
 
 @State(Scope.Benchmark)
@@ -19,7 +20,7 @@ open class StringReplaceBenchmark {
 
     var testString: String = ""
 
-    @Setup
+    @Setup(Level.Iteration)
     fun setup() {
         testString = generateTestString(totalLength, needle, occurrences)
     }
@@ -32,6 +33,9 @@ open class StringReplaceBenchmark {
 
     @Benchmark
     fun replaceRegex() = testString.replaceRegex(needle, replacement, ignoreCase)
+
+    @Benchmark
+    fun replaceRegex1() = testString.replaceRegex1(needle, replacement, ignoreCase)
 
     @Benchmark
     fun replacePlatform() = testString.replacePlatform(needle, replacement, ignoreCase)

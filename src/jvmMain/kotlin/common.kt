@@ -6,6 +6,8 @@ import kotlin.random.Random
 
 
 fun generateTestString(totalLength: Int, needle: String, occurrences: Int): String {
+    val seed = Random.nextLong()
+    val rnd = Random(seed)
     require(needle.length > 0 && needle.length * occurrences <= totalLength)
     val randomChars = charArrayOf('<', '>')
     return buildString(totalLength) {
@@ -13,14 +15,14 @@ fun generateTestString(totalLength: Int, needle: String, occurrences: Int): Stri
         val avgRun = totalRuns / (occurrences + 1)
 
         repeat(occurrences) {
-            val runLength = Random.nextInt(0, (avgRun * 2).coerceAtMost(totalRuns) + 1)
-            repeat(runLength) { append(randomChars.random()) }
+            val runLength = rnd.nextInt(0, (avgRun * 2).coerceAtMost(totalRuns) + 1)
+            repeat(runLength) { append(randomChars.random(rnd)) }
             append(needle)
             totalRuns -= runLength
         }
-        repeat(totalRuns) { append(randomChars.random()) }
+        repeat(totalRuns) { append(randomChars.random(rnd)) }
         check(this.length == totalLength)
-        println(this.take(80))
+        println("$seed: ${this.take(80)}...")
     }
 }
 
@@ -31,11 +33,23 @@ fun String.replaceRegex(oldValue: String, newValue: String, ignoreCase: Boolean 
             .replaceAll(Matcher.quoteReplacement(newValue))
 }
 
+fun String.replaceRegex1(oldValue: String, newValue: String, ignoreCase: Boolean = false): String {
+    val matcher = Pattern.compile(oldValue, Pattern.LITERAL or if (ignoreCase) Pattern.CASE_INSENSITIVE else 0).matcher(this)
+    if (!matcher.find()) return this
+    val sb = StringBuilder()
+    var i = 0
+    do {
+        sb.append(this, i, matcher.start()).append(newValue)
+        i = matcher.end()
+    } while (matcher.find())
+    sb.append(this, i, length)
+    return sb.toString()
+}
+
 fun String.replacePlatform(oldValue: String, newValue: String, ignoreCase: Boolean = false): String {
     require(ignoreCase == false) { "case insensitive replacement is not supported" }
     return (this as java.lang.String).replace(oldValue, newValue)
 }
-
 
 fun String.replaceManual(oldValue: String, newValue: String, ignoreCase: Boolean = false): String {
     var occurrenceIndex: Int = indexOf(oldValue, 0, ignoreCase)

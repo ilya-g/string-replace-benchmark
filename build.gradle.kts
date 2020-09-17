@@ -57,8 +57,8 @@ benchmark {
 
         register("ignoreCaseVsNeedle") {
             warmups = 7
-            iterations = 10
-            iterationTime = 1000
+            iterations = 20
+            iterationTime = 500
             iterationTimeUnit = "ms"
             mode = "AverageTime"
             outputTimeUnit = "ns"
@@ -68,12 +68,22 @@ benchmark {
 
         register("lengthVsOccurrences") {
             warmups = 7
-            iterations = 10
-            iterationTime = 1000
+            iterations = 20
+            iterationTime = 500
             iterationTimeUnit = "ms"
             mode = "AverageTime"
             outputTimeUnit = "ns"
             param("ignoreCase", false)
+            param("needle", ">>back")
+        }
+        register("lengthVsOccurrences_ignoreCase") {
+            warmups = 7
+            iterations = 20
+            iterationTime = 500
+            iterationTimeUnit = "ms"
+            mode = "AverageTime"
+            outputTimeUnit = "ns"
+            param("ignoreCase", true)
             param("needle", ">>back")
         }
     }
