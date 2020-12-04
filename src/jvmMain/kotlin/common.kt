@@ -28,13 +28,13 @@ fun generateTestString(totalLength: Int, needle: String, occurrences: Int): Stri
 
 
 fun String.replaceRegex(oldValue: String, newValue: String, ignoreCase: Boolean = false): String {
-    return Pattern.compile(oldValue, Pattern.LITERAL or if(ignoreCase) Pattern.CASE_INSENSITIVE else 0)
+    return Pattern.compile(oldValue, Pattern.LITERAL or if(ignoreCase) Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE else 0)
             .matcher(this)
             .replaceAll(Matcher.quoteReplacement(newValue))
 }
 
 fun String.replaceRegex1(oldValue: String, newValue: String, ignoreCase: Boolean = false): String {
-    val matcher = Pattern.compile(oldValue, Pattern.LITERAL or if (ignoreCase) Pattern.CASE_INSENSITIVE else 0).matcher(this)
+    val matcher = Pattern.compile(oldValue, Pattern.LITERAL or if (ignoreCase) Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE else 0).matcher(this)
     if (!matcher.find()) return this
     val sb = StringBuilder()
     var i = 0
